@@ -122,17 +122,17 @@
       <button type="submit" class="btn">Edit Image</button>
     </div>
   </form>
-</div>
-     <script>
-      const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  <script>
+    const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          const numberInputs = checkbox.parentElement.querySelectorAll('input[type="number"], input[type="text"]');
-          numberInputs.forEach(input => input.disabled = !checkbox.checked);
-        });
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const numberInputs = checkbox.parentElement.querySelectorAll('input[type="number"], input[type="text"]');
+        numberInputs.forEach(input => input.disabled = !checkbox.checked);
       });
-    </script>
+    });
+  </script>
+</div>
 </body>
 </html>
