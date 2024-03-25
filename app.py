@@ -24,16 +24,8 @@ def index():
 
 @app.route('/edit', methods=['POST'])
 def edit():
-    try:
-        img_data = request.files['image']
-    except:
-        if img_data is None or img_data.filename == '':
-            return 'No image uploaded', 400
-    try:
-        img = Image.open(img_data)
-        opencv_img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-    except Exception as e:
-        return f'Error processing image: {str(e)}', 500
+    img_data = request.files['image']
+    img = Image.open(img_data)
 
     # Apply filters based on user inputs
     if 'rotate' in request.form:
