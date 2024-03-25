@@ -2,10 +2,9 @@
 from flask import Flask, render_template, request, send_file
 from PIL import Image, ImageFilter, ImageEnhance, ImageDraw, ImageFont
 import base64
-import io
-from io import BytesIO
 import cv2
 import numpy as np
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -49,9 +48,8 @@ def edit():
     if 'grayscale' in request.form:
         img = img.convert('L')
 
-
     # Convert image to OpenCV format
-    opencv_img = cv2.cvtColor(opencv_img, cv2.COLOR_BGR2RGB)
+    opencv_img = np.array(img)
     if 'face_detection' in request.form:
         opencv_img = detect_faces(opencv_img)
     # Convert back to PIL format
@@ -67,11 +65,8 @@ def edit():
 # Route for downloading the final image
 @app.route('/download')
 def download():
-    global edited_image
-    img_io = io.BytesIO()
-    edited_image.save(img_io, 'JPEG')
-    img_io.seek(0)
-    return send_file(img_io, as_attachment=True, download_name='edited_image.jpg')
+    img_data = request.args.get('img_data')
+    return send_file(BytesIO(base64.b64decode(img_data)), as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
